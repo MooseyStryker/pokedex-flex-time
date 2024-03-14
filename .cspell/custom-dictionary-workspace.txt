@@ -1,0 +1,13 @@
+# Custom Dictionary Words
+Blastoise
+Caterpie
+Charizard
+Charmander
+Charmeleon
+deets
+defense
+Ivysaur
+mons
+Squirtle
+Venusaur
+Wartortle

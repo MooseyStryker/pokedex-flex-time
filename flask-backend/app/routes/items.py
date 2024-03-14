@@ -1,24 +1,26 @@
 from flask import Blueprint, render_template, redirect
 from ..models import db, Item
+from ..forms.item_form import ItemForm
 
 
-
-items = Blueprint('items', __name__)
-
+item_routes = Blueprint('item', __name__, url_prefix="items")
 
 
-@items.route('/pokemon/:pokemonId/items')
+@item_routes.route('/')
 def all_items():
-	pass
-   #  poke_all_the_mons =
+  stmt = select(Item)
+  res = db.session.execute(stmt)
+  items = res.scalars()
+  return { "items" : items }
 
 
-@items.route('/items/:id', methods=['PUT'])
-def edit_item():
-	pass
+@item_routes.route('/<int:id>', methods=['PUT'])
+def edit_item(id):
+	 stmt = select(Item).where(Item.id=id)
+    row = db.session.execute(st)
 
 
-@items.route('/pokemon/:pokemonId/items', methods=['POST'])
+@item_routes.route('/pokemon/:pokemonId/items', methods=['POST'])
 def post_items():
 	pass
   # form line
@@ -27,6 +29,6 @@ def post_items():
    #      db.session.add()
    #      db.session.commit()
 
-@items.route('/items/:id', methods=['DELETE'])
+@item_routes.route('/:id', methods=['DELETE'])
 def delete_item():
 	pass

@@ -7,6 +7,7 @@ from .routes.pokemon import bp
 from .routes.items import items
 from .forms.pokemon_form import Pokemon
 from .forms.item_form import Item
+from .models import db
 
 
 app = Flask(__name__)
@@ -31,7 +32,7 @@ def inject_csrf_token(response):
         httponly=True)
     return response
 
-@app.route('/api/pokemon/types')
+@app.route('/pokemon/types')
 def all_pokemon_types():
     pass
 @app.route('/')

@@ -1,32 +1,48 @@
 from flask import Blueprint
 from sqlalchemy import select
 from app.models.pokemon import Pokemon, db
+from app.forms.pokemon_form import PokemonForm
 
-bp = Blueprint('pokemon', __name__, url_prefix="litcity")
+pokemon_routes = Blueprint('pokemon', __name__, url_prefix="/pokemon")
 
 
 
-@bp.route('/pokemon', methods=["GET"])
+
+pokemon_routes.route('/', methods=["GET"])
 def all_pokemon():
   stmt = select(Pokemon)
-  res = db.session.execute(stmt)
-  pokemons = res.scalars()
+  row = db.session.execute(stmt)
+  pokemons = res.scalars() #find another name for this? plural of pokemon is still pokemon maybe we can use a unique variable name?
+  return { "pokemon" : pokemons }
 
-@bp.route('/pokemon/:id')
+
+pokemon_routes.route('/<int:id>')
 def poke_deets():
    pass
 
 
-@bp.route('/pokemon', methods=['POST'])
+
+pokemon_routes.route('/', methods=['POST'])
 def post_pokemon():
-  pass
-  # form line
-    # if form.validate_on_submit():
-    #     # model line
-    #     db.session.add()
-    #     db.session.commit()
+  form = PokemonForm
+  if form.validate_on_submit():
+        pokemon = Pokemon(
+           number = form.data.number,
+           attack = form.data.attack,
+           defense = form.data.defense,
+           image_url = form.data.image_url,
+           name = form.data.name,
+           type = form.data.type,
+           moves = form.data.moves,
+           encounterRate = form.data.encounterRate,
+           catchRate = form.data.catchRate,
+           captured = form.data.captured
+           )
+        db.session.add(pokemon)
+        db.session.commit()
+        return { "pokemon" : pokemon }
 
 
-@bp.route('/pokemon/:id', methods=['PUT'])
+pokemon_routes.route('/<int:id>', methods=['PUT'])
 def update_pokemon():
    pass

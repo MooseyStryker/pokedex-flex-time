@@ -15,6 +15,7 @@ flask = "*"
 flask-migrate = "*"
 sqlalchemy = "*"
 wtforms = "*"
+faker = "*"
 
 [dev-packages]
 

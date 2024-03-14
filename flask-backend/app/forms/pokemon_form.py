@@ -21,7 +21,7 @@ types = [
     ("steel", "Steel"),
 ]
 
-class Pokemon(FlaskForm):
+class PokemonForm(FlaskForm):
     number = IntegerField("Number" , validators=[DataRequired()])
     attack = IntegerField("Attack" , validators=[DataRequired()])
     defense = IntegerField("Defense" , validators=[DataRequired()])
@@ -29,7 +29,7 @@ class Pokemon(FlaskForm):
     name = StringField("Name" , validators=[DataRequired()])
     type = SelectField("Type" , validators=[DataRequired()], choices=types)
     moves = StringField("Moves" , validators=[DataRequired()])
-    encounterRate = DecimalField("EncounterRate" , validators=[DataRequired(), NumberRange(min=0, max=100)], default=1.00)
-    catchRate = DecimalField("CatchRate" , validators=[DataRequired(), NumberRange(min=0, max=100)], default = 1.00)
+    encounter_rate = DecimalField("EncounterRate" , validators=[DataRequired(), NumberRange(min=0, max=100)], default=1.00)
+    catch_rate = DecimalField("CatchRate" , validators=[DataRequired(), NumberRange(min=0, max=100)], default = 1.00)
     captured = BooleanField("Captured" , validators=[DataRequired()] , default=False)
     submit = SubmitField("Submit")
