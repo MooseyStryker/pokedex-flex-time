@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST">
+    {{ form.hidden_tag }}
+
+<p>
+    {{ form.number.label }}
+    {{ form.number }}
+</p>
+<p>
+    {{ form.attack.label }}
+    {{ form.attack }}
+</p>
+<p>
+    {{ form.defence.label }}
+    {{ form.defence }}
+</p>
+<p>
+    {{ form.name.label }}
+    {{ form.name }}
+</p>
+<p>
+    {{ form.moves.label }}
+    {{ form.moves }}
+</p>
+<p>
+    {{ form.type.label }}
+    {{ form.type }}
+</p>
+
+</form>
+
+{% endblock %}

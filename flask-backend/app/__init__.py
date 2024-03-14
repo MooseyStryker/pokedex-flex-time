@@ -8,6 +8,8 @@ from .routes.items import item_routes
 from .forms.pokemon_form import PokemonForm
 from .forms.item_form import ItemForm
 from .models import db
+from .seeds import seed_commands
+
 
 
 app = Flask(__name__)
@@ -16,7 +18,7 @@ app.config.from_object(Configuration)
 app.register_blueprint(pokemon_routes, url_prefix='/pokemon')
 app.register_blueprint(item_routes, url_prefix='/items')## cannot change this url_prefix due to item url variety
 db.init_app(app)
-
+app.cli.add_command(seed_commands)
 migrate = Migrate(app, db)
 
 

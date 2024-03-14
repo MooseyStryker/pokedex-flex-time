@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1> PokeDeets </h1>
+<ul>
+{% for pokemon in pokemons %}
+    <li>
+        {{pokemon.name}}
+        {{pokemon.number}}
+        {{pokemon.image_url}}
+        {{pokemon.captured}}
+
+    </li>
+</ul>
+{% endfor %}
+{% endblock %}

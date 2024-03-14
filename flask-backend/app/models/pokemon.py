@@ -20,7 +20,6 @@ class Item(db.Model):
     image_url: Mapped[str] = mapped_column(String(255), nullable=False)
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     price: Mapped[int] = mapped_column(nullable=False)
-    type: Mapped[str] = mapped_column(nullable=False)
     poke_items: Mapped["Pokemon"] = relationship(back_populates="items_of_pokes")
 
 class Pokemon(db.Model):
@@ -31,7 +30,7 @@ class Pokemon(db.Model):
     attack: Mapped[int] = mapped_column(nullable=False)
     defense: Mapped[int] = mapped_column(nullable=False)
     image_url: Mapped[str] = mapped_column(nullable=False)
-    type: Mapped[str] = mapped_column(nullable=False)
+    type: Mapped[int] = mapped_column(nullable=False)
     moves: Mapped[str] = mapped_column(String(255), nullable=False)
     encounter_rate: Mapped[float] = mapped_column()
     catch_rate: Mapped[float] = mapped_column()

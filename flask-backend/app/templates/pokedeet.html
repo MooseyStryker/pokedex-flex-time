@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>{{pokemon.name}}</h1>
+    <img src="{{ pokemon.image_url }}" alt="{{ pokemon.name }}">
+    <p>Number: {{ pokemon.number }}</p>
+    <p>Attack: {{ pokemon.attack }}</p>
+    <p>Defense: {{ pokemon.defense }}</p>
+    <p>Type: {{ pokemon.type }}</p>
+    <p>Moves: {{ pokemon.moves }}</p>
+    <p>Encounter Rate: {{ pokemon.encounter_rate }}</p>
+    <p>Catch Rate: {{ pokemon.catch_rate }}</p>
+    <p>Captured: {{ 'Yes' if pokemon.captured else 'No' }}</p>
+
+{% endblock %}
