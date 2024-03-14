@@ -3,18 +3,18 @@ from flask import Flask, render_template
 from flask_migrate import Migrate
 from app.config import Configuration, os
 from flask_wtf.csrf import CSRFProtect, generate_csrf
-from .routes.pokemon import bp
-from .routes.items import items
-from .forms.pokemon_form import Pokemon
-from .forms.item_form import Item
+from .routes.pokemon import pokemon_routes
+from .routes.items import item_routes
+from .forms.pokemon_form import PokemonForm
+from .forms.item_form import ItemForm
 from .models import db
 
 
 app = Flask(__name__)
 
 app.config.from_object(Configuration)
-app.register_blueprint(bp, url_prefix='/api')
-app.register_blueprint(items, url_prefix='/api')
+app.register_blueprint(pokemon_routes, url_prefix='/pokemon')
+app.register_blueprint(item_routes, url_prefix='/items')## cannot change this url_prefix due to item url variety
 db.init_app(app)
 
 migrate = Migrate(app, db)

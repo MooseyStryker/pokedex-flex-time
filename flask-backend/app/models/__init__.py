@@ -1,3 +1,5 @@
 from .db import db
-from .items import Item
-from .pokemon import Pokemon, PokemonType
+
+from .pokemon import Pokemon
+from .pokemon import PokemonType
+from .pokemon import Item

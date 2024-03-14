@@ -1,42 +1,23 @@
-from flask import Flask
-from app import app
-from app.models.pokemon import Pokemon, db
-
-## AL - Dunno what to do with those types ._.(will revisit)
-types = [
-  "fire",
-  "electric",
-  "normal",
-  "ghost",
-  "psychic",
-  "water",
-  "bug",
-  "dragon",
-  "grass",
-  "fighting",
-  "ice",
-  "flying",
-  "poison",
-  "ground",
-  "rock",
-  "steel",
-];
+# from app.models.pokemon import Pokemon, db
+from ..models.pokemon import Pokemon, db
+# from models.pokemon import Pokemon, db
+# from ..models import db, Pokemon
+from sqlalchemy.sql import text
 
 
-with app.app_context():
-
+def catch_pokemon():
 	pokemon1 = Pokemon(
 		number= 1,
-      imageUrl= '/images/pokemon_snaps/1svg',
-      name= 'Bulbasaur',
-      attack= 49,
-      defense= 49,
-      type= 'grass',
-      moves= [
+    imageUrl= '/images/pokemon_snaps/1svg',
+    name= 'Bulbasaur',
+    attack= 49,
+    defense= 49,
+    type= 'grass',
+    moves= [
           'tackle',
           'vine whip'
         ],
-      captured = True
+    captured = True
 	)
 	pokemon2 = Pokemon(
 		number = 2,
@@ -140,12 +121,12 @@ with app.app_context():
 	)
 	pokemon9 = Pokemon(
 		number = 9,
-      imageUrl = '/images/pokemon_snaps/9.svg',
-      name = 'Blastoise',
-      attack = 83,
-      defense = 100,
-      type = 'water',
-      moves = [
+    imageUrl = '/images/pokemon_snaps/9.svg',
+    name = 'Blastoise',
+    attack = 83,
+    defense = 100,
+    type = 'water',
+    moves = [
           'hydro pump',
           'bubble',
           'water gun',
@@ -154,21 +135,31 @@ with app.app_context():
 	)
 	pokemon10 = Pokemon(
 		number = 10,
-      imageUrl = '/images/pokemon_snaps/10.svg',
-      name = 'Caterpie',
-      attack = 30,
-      defense = 35,
-      type = 'bug',
-      moves = [
+    imageUrl = '/images/pokemon_snaps/10.svg',
+    name = 'Caterpie',
+    attack = 30,
+    defense = 35,
+    type = 'bug',
+    moves = [
          'tackle'
       ],
 	)
+	all_pokemon = [pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6, pokemon7, pokemon8, pokemon9, pokemon10]
+	print('\n Testing the first pokemon ... \n', pokemon1)
+	add_pokemon = [db.session.add(pokemon) for pokemon in all_pokemon]
+	# if all_pokemon:
+  #   # create list comprehension for all_pokemon and if DOES NOT include captured to create a captured = false
+	# 	pass
 
-
-all_pokemon = [pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6, pokemon7, pokemon8, pokemon9, pokemon10]
-print('\n Testing the first pokemon ... \n', pokemon1)
-_ = [db.session.add(pokemon) for pokemon in all_pokemon]
-db.session.commit()
-print("-" *5, "all pokemon seeded", "-"*5)
+	db.session.commit()
+	print("-" *5, "all pokemon seeded", "-"*5)
+	return all_pokemon
 
 #! NOTE: If no key captured automatically insert False in db
+
+
+def drop_them_pokemon():
+	db.session.execute(text("DELETE FROM pokemon"))
+	db.session.commit()
+
+drop_them_pokemon()

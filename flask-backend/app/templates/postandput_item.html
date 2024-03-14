@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+{% if id %}
+<form action="/items/{{id}}/update" method="POST">
+{% else %}
+<form action="/posts/new" method="POST">
+  {% endif %}
+  {{form.hidden_tag()}}
+  {{form.happiness.label}} {{form.happiness}}
+  {{form.image_url.label}} {{form.image_url}}
+  {{form.name.label}} {{form.name}}
+  {{form.price.label}} {{form.price}}
+  {{form.submit}}
+</form>
+{% endblock %}

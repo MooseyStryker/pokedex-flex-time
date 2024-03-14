@@ -8,6 +8,7 @@ deets
 defense
 Ivysaur
 mons
+pokemen
 Squirtle
 Venusaur
 Wartortle

@@ -1,5 +1,5 @@
 # from app import app
-# from app.models.items import Item, db
+from app.models.items import Item, db
 from faker import commerce
 from random import random
 
@@ -11,17 +11,15 @@ def random_10():
 def random_image():
 	images = [
 		"/images/pokemon_berry.svg",
-    "/images/pokemon_egg.svg",
-    "/images/pokemon_potion.svg",
-    "/images/pokemon_super_potion.svg",
+    	"/images/pokemon_egg.svg",
+    	"/images/pokemon_potion.svg",
+    	"/images/pokemon_super_potion.svg",
 	]
 
 	index = random.randint(0, len(images) -1)
-
 	return images[index]
 
-# this function rather than having asterisks to indicate random generation like in js, just going to make random generation thru python coding
-## unsure the choice of using any number under 125, but we will use every number under 10
+
 def generate_items():
 	# while loop and then a for loop
 	pokemon_id = 1
@@ -37,4 +35,6 @@ def generate_items():
 			}
 	pokemonId += 1
 
+db.session.add(Item(generate_items))
+db.session.commit()
 #* this seed is completed until more seed data of pokemon is/may-be provided
