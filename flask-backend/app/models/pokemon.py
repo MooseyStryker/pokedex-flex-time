@@ -1,6 +1,6 @@
 from .db import db
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import String
+from sqlalchemy import String, Table, ForeignKey, Integer
 from typing import List
 
 pokemon_typing = Table('pokemon_typing', db.Model.metadata,

@@ -14,9 +14,9 @@ app = Flask(__name__)
 app.config.from_object(Configuration)
 app.register_blueprint(bp, url_prefix='/api')
 app.register_blueprint(items, url_prefix='/api')
-# db.init_app(app)
+db.init_app(app)
 
-# migrate = Migrate(app, db)
+migrate = Migrate(app, db)
 
 
 # after request code for CSRF token injection
@@ -34,3 +34,6 @@ def inject_csrf_token(response):
 @app.route('/api/pokemon/types')
 def all_pokemon_types():
     pass
+@app.route('/')
+def hello():
+    return render_template('hello.html')

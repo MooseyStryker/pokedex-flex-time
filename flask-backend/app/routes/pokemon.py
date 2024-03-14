@@ -1,15 +1,16 @@
 from flask import Blueprint
+from sqlalchemy import select
+from app.models.pokemon import Pokemon, db
 
-
-bp = Blueprint('pokemon', __name__)
+bp = Blueprint('pokemon', __name__, url_prefix="litcity")
 
 
 
 @bp.route('/pokemon', methods=["GET"])
 def all_pokemon():
-    # poke_all_the_mons =
-    pass
-
+  stmt = select(Pokemon)
+  res = db.session.execute(stmt)
+  pokemons = res.scalars()
 
 @bp.route('/pokemon/:id')
 def poke_deets():

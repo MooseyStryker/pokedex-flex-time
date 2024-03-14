@@ -1,7 +1,9 @@
-from flask import Blueprint
+from flask import Blueprint, render_template, redirect
+from ..models import db, Item
 
 
-items = Blueprint('pokemon', __name__)
+
+items = Blueprint('items', __name__)
 
 
 
