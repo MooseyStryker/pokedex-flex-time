@@ -5,14 +5,16 @@ name = "pypi"
 
 [packages]
 python-dotenv = "*"
-Flask = "*"
-Flask-SQLAlchemy = "*"
-Flask-WTF = "*"
-SQLAlchemy = "*"
-WTForms = "*"
-Flask-Migrate = "*"
 alembic = "*"
-
+flask-wtf = "*"
+pycodestyle = "*"
+pylint = "*"
+rope = "*"
+flask-sqlalchemy = "*"
+flask = "*"
+flask-migrate = "*"
+sqlalchemy = "*"
+wtforms = "*"
 
 [dev-packages]
 

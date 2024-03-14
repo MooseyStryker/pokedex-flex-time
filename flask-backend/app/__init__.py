@@ -8,7 +8,7 @@ from .routes.pokemon import bp
 app = Flask(__name__)
 
 app.config.from_object(Configuration)
-
+app.register_blueprint(bp, url_prefix='/api')
 # db.init_app(app)
 
 # Migrate(app, db)
