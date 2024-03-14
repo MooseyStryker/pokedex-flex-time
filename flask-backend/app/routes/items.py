@@ -5,15 +5,18 @@ items = Blueprint('pokemon', __name__)
 
 
 
-@items.route('/')
+@items.route('/pokemon/:pokemonId/items')
 def all_items():
 	pass
    #  poke_all_the_mons =
 
 
+@items.route('/items/:id', methods=['PUT'])
+def edit_item():
+	pass
 
 
-@items.route('/', method=['POST'])
+@items.route('/pokemon/:pokemonId/items', methods=['POST'])
 def post_items():
 	pass
   # form line
@@ -21,3 +24,7 @@ def post_items():
         # model line
    #      db.session.add()
    #      db.session.commit()
+
+@items.route('/items/:id', methods=['DELETE'])
+def delete_item():
+	pass
