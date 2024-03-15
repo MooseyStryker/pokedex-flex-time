@@ -7,6 +7,7 @@ item_routes = Blueprint('item', __name__)
 #url_prefix = /items
 
 
+
 @item_routes.route('/<int:id>/update', methods=['GET','POST'])
 def edit_item(id):
   stmt = select(Item).where(Item.id == id)
