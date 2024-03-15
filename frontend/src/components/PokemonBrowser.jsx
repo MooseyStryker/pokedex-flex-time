@@ -24,7 +24,7 @@ const PokemonBrowser = () => {
   let pokemon = allPokemon.list.map(pokemonId => allPokemon[pokemonId]);
   console.log(pokemon[0])
   if (Object.keys(pokemon).length) {
-  pokemon = Object.values(pokemon[0].pokemon)
+  pokemon = Object.values(pokemon)
   console.log(pokemon)
   }
   const [showForm, setShowForm] = useState(false);

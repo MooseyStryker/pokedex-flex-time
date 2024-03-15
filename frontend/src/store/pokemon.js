@@ -52,7 +52,7 @@ export const getOnePokemon = id => async dispatch => {
 
 export const createPokemon = data => async dispatch => {
   const response = await fetch(`/api/pokemon`, {
-    method: 'post',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -110,7 +110,7 @@ const initialState = {
 };
 
 const sortList = (list) => {
-  return list.sort((pokemonA, pokemonB) => {
+  return list.pokemon.sort((pokemonA, pokemonB) => {
     return pokemonA.number - pokemonB.number;
   }).map((pokemon) => pokemon.id);
 };
@@ -119,7 +119,7 @@ const pokemonReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD: {
       const allPokemon = {};
-      action.list.forEach(pokemon => {
+      action.list.pokemon.forEach(pokemon => {
         allPokemon[pokemon.id] = pokemon;
       });
       return {

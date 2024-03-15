@@ -13,7 +13,9 @@ import ItemForm from './ItemForm';
 
 const PokemonDetail = () => {
   const { pokemonId } = useParams();
-  const pokemon = useSelector(state => state.pokemon[pokemonId]);
+  let pokemon = useSelector(state => state.pokemon);
+  pokemon = pokemon[pokemonId]
+  // pokemon
   //!!START SILENT
   const dispatch = useDispatch();
   //!!END
@@ -35,7 +37,7 @@ const PokemonDetail = () => {
   //!!ADD
   // }, [pokemonId]);
   //!!END_ADD
-
+  // console.log(Object.values(pokemon), "POKEMONDETAIL")
   if (!pokemon || !pokemon.moves) {
     return null;
   }
@@ -46,7 +48,7 @@ const PokemonDetail = () => {
   if (showAddForm) {
     content = (
       <ItemForm
-        pokemonId={pokemon.id}
+        pokemonId={pokemon?.id}
         itemId={-1}
         hideForm={() => setShowAddForm(false)}
       />
@@ -76,23 +78,24 @@ const PokemonDetail = () => {
           <h2>Information</h2>
           <ul>
             <li>
-              <b>Number</b> {pokemon.number}
+              <b>Number</b> {pokemon?.number}
             </li>
             <li>
-              <b>Type</b> {pokemon.type}
+              <b>Type</b> {pokemon?.type}
             </li>
             <li>
-              <b>Attack</b> {pokemon.attack}
+              <b>Attack</b> {pokemon?.attack}
             </li>
             <li>
-              <b>Defense</b> {pokemon.defense}
+              <b>Defense</b> {pokemon?.defense}
             </li>
             <li>
               <b>Moves</b>
               <ul>
-                {pokemon.moves && pokemon.moves.map((move, i) => (
-                  <li key={move+i}>{move}</li>
-                ))}
+                {pokemon?.moves && pokemon?.moves}
+                {/* // .map((move, i) => (
+                //   <li key={move+i}>{move}</li>
+                // ))} */}
               </ul>
             </li>
           </ul>
@@ -101,7 +104,7 @@ const PokemonDetail = () => {
           <h2>
             Items
             {/*!!START SILENT */}
-            {pokemon.captured && (
+            {pokemon?.captured && (
               <button onClick={() => setShowAddForm(true)}> + </button>
             )}
             {/*!!END */}
@@ -132,11 +135,11 @@ const PokemonDetail = () => {
       <div className={`pokemon-detail-image-background`}>
         <div
           className="pokemon-detail-image"
-          style={{ backgroundImage: `url('${pokemon.imageUrl}')` }}
+          style={{ backgroundImage: `url('${pokemon?.imageUrl}')` }}
         ></div>
         <div>
-          <h1 className="bigger">{pokemon.name}</h1>
-          {(!showEditPokeForm && pokemon.captured) && (
+          <h1 className="bigger">{pokemon?.name}</h1>
+          {(!showEditPokeForm && pokemon?.captured) && (
             <button onClick={() => setShowEditPokeForm(true)}>Edit</button>
           )}
         </div>

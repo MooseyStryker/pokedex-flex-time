@@ -1,34 +1,59 @@
 from flask import Blueprint, request, render_template
-from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 from app.models.pokemon import Pokemon, db, Item, PokemonType
 from app.forms.pokemon_form import PokemonForm
 from app.forms.item_form import ItemForm
 from flask import jsonify, make_response
-
+from sqlalchemy import select
 pokemon_routes = Blueprint("pokemon", __name__, url_prefix="/api/pokemon")
 
 
-@pokemon_routes.route("/", methods=["GET"])
+# @pokemon_routes.route("/", methods=["GET"])
+# def all_pokemon():
+#     pokemon = {}
+#     stmt = select(Pokemon).join(PokemonType.pokemen)
+#     print(stmt)
+#     for row in db.session.execute(stmt):
+#         pokemon[row.Pokemon.name] = {
+#             "id": row.Pokemon.id,
+#             "name": row.Pokemon.name,
+#             "number": row.Pokemon.number,
+#             "attack": row.Pokemon.attack,
+#             "defense": row.Pokemon.defense,
+#             "image_url": row.Pokemon.image_url,
+#             "type": row.Pokemon.type,
+#             "moves": row.Pokemon.moves,
+#             "encounter_rate": row.Pokemon.encounter_rate,
+#             "catch_rate": row.Pokemon.catch_rate,
+#         }
+#     pokemon = jsonify([{"pokemon": pokemon}])
+#     pokemon.headers.add("Access-Control-Allow-Origin", "*")
+#     # find another name for this? plural of pokemon is still pokemon maybe we can use a unique variable name?
+#     return pokemon
+
+@pokemon_routes.route('/', methods=['GET'])
 def all_pokemon():
-    pokemon = {}
-    stmt = select(Pokemon).join(PokemonType.pokemen)
-    print(stmt)
+    stmt = select(Pokemon)
+    # pokemon_data = {}
+    pokemon_list = []
     for row in db.session.execute(stmt):
-        pokemon[row.Pokemon.id] = {
-            "name": row.Pokemon.name,
-            "number": row.Pokemon.number,
-            "attack": row.Pokemon.attack,
-            "defense": row.Pokemon.defense,
-            "image_url": row.Pokemon.image_url,
-            "type": row.Pokemon.type,
-            "moves": row.Pokemon.moves,
-            "encounter_rate": row.Pokemon.encounter_rate,
-            "catch_rate": row.Pokemon.catch_rate,
+        pokemon = row.Pokemon
+        pokemon_info = {
+            "id": pokemon.id,
+            "name": pokemon.name,
+            "number": pokemon.number,
+            "attack": pokemon.attack,
+            "defense": pokemon.defense,
+            "image_url": pokemon.image_url,
+            "type": pokemon.type,
+            "moves": pokemon.moves,
+            "encounter_rate": pokemon.encounter_rate,
+            "catch_rate": pokemon.catch_rate,
         }
-    pokemon = jsonify([{"pokemon": pokemon}])
-    pokemon.headers.add("Access-Control-Allow-Origin", "*")
-    # find another name for this? plural of pokemon is still pokemon maybe we can use a unique variable name?
-    return pokemon
+        pokemon_list.append(pokemon_info)
+    res = jsonify({"pokemon" : pokemon_list })
+    res.headers.add("Access-Control-Allow-Origin", "*")
+    return res
 
 
 @pokemon_routes.route("/<int:id>")
@@ -36,7 +61,8 @@ def poke_deets(id):
     pokemon = {}
     stmt = select(Pokemon).where(Pokemon.id == id)
     for row in db.session.execute(stmt):
-        pokemon[row.Pokemon.id] = {
+        pokemon[row.Pokemon.name] = {
+            "id": row.Pokemon.id,
             "name": row.Pokemon.name,
             "number": row.Pokemon.number,
             "attack": row.Pokemon.attack,
@@ -55,8 +81,8 @@ def poke_deets(id):
 
 @pokemon_routes.route("/", methods=["GET", "POST"])
 def post_pokemon():
-    form = PokemonForm
-    if form.validate_on_submit():
+    if request.method == "POST":
+        print(request)
         pokemon = Pokemon(
             number=form.data.number,
             attack=form.data.attack,
@@ -71,7 +97,18 @@ def post_pokemon():
         )
         db.session.add(pokemon)
         db.session.commit()
-        return {"pokemon": pokemon}
+        res = jsonify(pokemon)
+        res.headers.add("Access-Control-Allow-Origin", "*")
+        return res
+
+@pokemon_routes.route("/types", methods=["GET"])
+def get_types():
+    stmt = select(PokemonType)
+    type_list = []
+    for row in db.session.execute(stmt):
+        type_list.append(row.PokemonType.type)
+    res = jsonify({"types": type_list})
+    return res
 
 
 @pokemon_routes.route("/<int:id>", methods=["PUT"])

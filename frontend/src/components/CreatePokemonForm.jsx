@@ -14,7 +14,8 @@ const CreatePokemonForm = ({ hideForm }) => {
   //!!START SILENT
   const [errorMessages, setErrorMessages] = useState({});
   //!!END
-  const pokeTypes = useSelector(state => state.pokemon.types);
+  let pokeTypes = useSelector(state => state.pokemon.types);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [number, setNumber] = useState(1);
@@ -22,7 +23,7 @@ const CreatePokemonForm = ({ hideForm }) => {
   const [defense, setDefense] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [name, setName] = useState('');
-  const [type, setType] = useState(pokeTypes[0]);
+  const [type, setType] = useState(pokeTypes.types && pokeTypes.types[0]);
   const [move1, setMove1] = useState('');
   const [move2, setMove2] = useState('');
 
@@ -34,14 +35,14 @@ const CreatePokemonForm = ({ hideForm }) => {
   const updateType = (e) => setType(e.target.value);
   const updateMove1 = (e) => setMove1(e.target.value);
   const updateMove2 = (e) => setMove2(e.target.value);
-
+console.log(pokeTypes)
   useEffect(() => {
     dispatch(getPokemonTypes());
   }, [dispatch]);
 
   useEffect(() => {
-    if (pokeTypes.length && !type) {
-      setType(pokeTypes[0]);
+    if (pokeTypes.types && !type) {
+      setType(pokeTypes?.types[0]);
     }
   }, [pokeTypes, type]);
 
@@ -171,7 +172,7 @@ const CreatePokemonForm = ({ hideForm }) => {
         <ErrorMessage label={"Moves"} message={errorMessages.moves} />
         {/*!!END */}
         <select onChange={updateType} value={type}>
-          {pokeTypes.map(type =>
+          {pokeTypes.types && pokeTypes.types.map(type =>
             <option key={type}>{type}</option>
           )}
         </select>
