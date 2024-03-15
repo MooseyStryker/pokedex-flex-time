@@ -20,7 +20,13 @@ const PokemonBrowser = () => {
   //!!END
   const { pokemonId } = useParams();
   const allPokemon = useSelector(state => state.pokemon);
-  const pokemon = allPokemon.list.map(pokemonId => allPokemon[pokemonId]);
+  console.log(allPokemon)
+  let pokemon = allPokemon.list.map(pokemonId => allPokemon[pokemonId]);
+  console.log(pokemon[0])
+  if (Object.keys(pokemon).length) {
+  pokemon = Object.values(pokemon[0].pokemon)
+  console.log(pokemon)
+  }
   const [showForm, setShowForm] = useState(false);
 
   //!!START SILENT
@@ -33,7 +39,7 @@ const PokemonBrowser = () => {
     <main>
       <nav>
         <Fab hidden={showForm} onClick={() => setShowForm(true)} />
-        {pokemon.map((pokemon) => {
+        {pokemon.length > 3 && pokemon.map((pokemon) => {
           return (
             <NavLink key={pokemon.name} to={`/pokemon/${pokemon.id}`}>
               <div

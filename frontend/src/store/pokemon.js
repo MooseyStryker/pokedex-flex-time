@@ -64,11 +64,11 @@ export const createPokemon = data => async dispatch => {
     if (response.status === 422) {
       error = await response.json();
       throw new ValidationError(error.errors, response.statusText);
-    } 
+    }
     else {
       let errorJSON;
       error = await response.text();
-      
+
       try {
         // Check if the error is JSON, i.e., from the Pokemon server. If so,
         // don't throw error yet or it will be caught by the following catch
@@ -80,7 +80,7 @@ export const createPokemon = data => async dispatch => {
       }
       throw new Error(`${errorJSON.title}: ${errorJSON.message}`);
     }
-  } 
+  }
 
   const pokemon = await response.json();
   dispatch(addOnePokemon(pokemon));
@@ -95,7 +95,7 @@ export const updatePokemon = data => async dispatch => {
     },
     body: JSON.stringify(data)
   });
-  
+
   if (response.ok) {
     const pokemon = await response.json();
     dispatch(addOnePokemon(pokemon));
@@ -128,7 +128,7 @@ const pokemonReducer = (state = initialState, action) => {
         list: sortList(action.list)
       };
     }
-    case LOAD_TYPES: 
+    case LOAD_TYPES:
       return {
         ...state,
         types: action.types
@@ -152,7 +152,7 @@ const pokemonReducer = (state = initialState, action) => {
         }
       };
     }
-    case LOAD_ITEMS: 
+    case LOAD_ITEMS:
       return {
         ...state,
         [action.pokemonId]: {

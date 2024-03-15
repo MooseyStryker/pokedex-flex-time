@@ -15,7 +15,7 @@ from .seeds import seed_commands
 app = Flask(__name__)
 
 app.config.from_object(Configuration)
-app.register_blueprint(pokemon_routes, url_prefix='/pokemon')
+app.register_blueprint(pokemon_routes, url_prefix='/api/pokemon')
 app.register_blueprint(item_routes, url_prefix='/items')## cannot change this url_prefix due to item url variety
 db.init_app(app)
 app.cli.add_command(seed_commands)

@@ -13,7 +13,7 @@ def catch_pokemon():
     name= 'Bulbasaur',
     attack= 49,
     defense= 49,
-    type= 'grass',
+    type= 9,
     moves= ','.join([
           'tackle',
           'vine whip'
@@ -28,7 +28,7 @@ def catch_pokemon():
       name = 'Ivysaur',
       attack = 62,
       defense = 63,
-      type = 'grass',
+      type = 9,
       moves =','.join([
           'tackle',
           'vine whip',
@@ -44,7 +44,7 @@ def catch_pokemon():
       name = 'Venusaur',
       attack = 82,
       defense = 83,
-      type = 'grass',
+      type = 9,
       moves =','.join([
           'tackle',
           'vine whip',
@@ -60,7 +60,7 @@ def catch_pokemon():
       name = 'Charmander',
       attack = 52,
       defense = 43,
-      type = 'fire',
+      type = 1,
       moves =','.join([
           'scratch',
           'ember',
@@ -76,7 +76,7 @@ def catch_pokemon():
       name = 'Charmeleon',
       attack = 64,
       defense = 58,
-      type = 'fire',
+      type = 1,
       moves =','.join([
           'scratch',
           'ember',
@@ -93,7 +93,7 @@ def catch_pokemon():
       name = 'Charizard',
       attack = 84,
       defense = 78,
-      type = 'fire',
+      type = 1,
       moves =','.join([
           'flamethrower',
           'wing attack',
@@ -110,7 +110,7 @@ def catch_pokemon():
       name = 'Squirtle',
       attack = 48,
       defense = 65,
-      type = 'water',
+      type = 6,
       moves =','.join([
           'tackle',
           'bubble',
@@ -126,7 +126,7 @@ def catch_pokemon():
       name = 'Wartortle',
       attack = 63,
       defense = 80,
-      type = 'water',
+      type = 6,
       moves =','.join([
           'tackle',
           'bubble',
@@ -143,7 +143,7 @@ def catch_pokemon():
     name = 'Blastoise',
     attack = 83,
     defense = 100,
-    type = 'water',
+    type = 6,
     moves =','.join([
           'hydro pump',
           'bubble',
@@ -160,7 +160,7 @@ def catch_pokemon():
     name = 'Caterpie',
     attack = 30,
     defense = 35,
-    type = 'bug',
+    type = 7,
     moves =','.join([
          'tackle'
       ]),

@@ -6,10 +6,10 @@ from typing import List
 
 
 
-pokemon_typing = db.Table('pokemon_typing',
-    sa.Column('pokemon_id', sa.ForeignKey("pokemon.id"), primary_key=True),
-    sa.Column('pokemontype_id', sa.ForeignKey("pokemon_types.id"), primary_key=True)
-)
+# pokemon_typing = db.Table('pokemon_typing',
+#     sa.Column('pokemon_id', sa.ForeignKey("pokemon.id"), primary_key=True),
+#     sa.Column('pokemontype_id', sa.ForeignKey("pokemon_types.id"), primary_key=True)
+# )
 
 class Item(db.Model):
     __tablename__ = 'items'
@@ -30,16 +30,16 @@ class Pokemon(db.Model):
     attack: Mapped[int] = mapped_column(nullable=False)
     defense: Mapped[int] = mapped_column(nullable=False)
     image_url: Mapped[str] = mapped_column(nullable=False)
-    type: Mapped[int] = mapped_column(nullable=False)
+    type: Mapped[int] = mapped_column(ForeignKey('pokemon_types.id'), nullable=False)
     moves: Mapped[str] = mapped_column(String(255), nullable=False)
     encounter_rate: Mapped[float] = mapped_column()
     catch_rate: Mapped[float] = mapped_column()
     captured: Mapped[bool] = mapped_column()
-    types: Mapped[List["PokemonType"]] = relationship(
-        "PokemonType",
-        secondary=pokemon_typing,
-        back_populates="pokemen" # not just pokemon?
-    )
+    # types: Mapped[List["PokemonType"]] = relationship(
+    #     "PokemonType",
+    #     secondary=pokemon_typing,
+    #     back_populates="pokemen" # not just pokemon?
+    # )
     items_of_pokes: Mapped[List["Item"]] = relationship(back_populates="poke_items")
 
 
@@ -47,8 +47,4 @@ class PokemonType(db.Model):
   __tablename__ = 'pokemon_types'
   id: Mapped[int] = mapped_column(primary_key=True)
   type: Mapped[str] = mapped_column(nullable=False)
-  pokemen: Mapped[List["Pokemon"]] = relationship(
-    "Pokemon",
-    secondary=pokemon_typing,
-    back_populates="types"
-  )
+  pokemen: Mapped[List["Pokemon"]] = relationship()
